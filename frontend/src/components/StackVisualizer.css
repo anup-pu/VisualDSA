@@ -1,0 +1,84 @@
+.stack-page {
+  text-align: center;
+  padding: 2rem;
+  font-family: Arial;
+}
+
+.stack-inputs {
+  margin-bottom: 1rem;
+}
+
+.stack-inputs input {
+  padding: 0.5rem;
+  border-radius: 5px;
+  width: 160px;
+  border: 1px solid #ccc;
+}
+
+.stack-inputs button {
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.stack-inputs button:hover {
+  background-color: #1565c0;
+}
+
+.message {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.stack-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.stack-box {
+  width: 140px;
+  min-height: 240px;
+  border: 3px solid #1976d2;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #e3f2fd;
+  display: flex;
+  flex-direction: column-reverse; /* fills from bottom to top */
+  justify-content: flex-start;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.stack-item {
+  background-color: #1e88e5;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  animation: slideUp 0.3s ease;
+}
+
+.top-label,
+.bottom-label {
+  font-weight: bold;
+  color: #1976d2;
+  margin: 5px 0;
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

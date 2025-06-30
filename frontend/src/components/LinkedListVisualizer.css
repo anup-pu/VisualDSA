@@ -1,0 +1,121 @@
+.linkedlist-page {
+  text-align: center;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+.ll-inputs {
+  margin-bottom: 1rem;
+}
+
+.ll-inputs input {
+  padding: 0.5rem;
+  border-radius: 5px;
+  width: 160px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.ll-inputs button {
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #388e3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.ll-inputs button:hover {
+  background-color: #2e7d32;
+}
+
+.message {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.ll-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5rem;
+  position: relative;
+}
+
+.ll-box {
+  display: flex;
+  align-items: center;
+  border: 3px solid #66bb6a;
+  background-color: #e8f5e9;
+  padding: 12px;
+  border-radius: 10px;
+  min-height: 70px;
+  max-width: 90%;
+  overflow-x: auto;
+}
+
+.ll-node {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.ll-node .value {
+  background-color: #43a047;
+  color: white;
+  padding: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow {
+  font-size: 24px;
+  margin: 0 8px;
+  color: #43a047;
+}
+
+.ll-head {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.head-label {
+  font-weight: bold;
+  font-size: 16px;
+  color: #2e7d32;
+}
+
+.ll-null {
+  font-size: 18px;
+  font-weight: bold;
+  color: #888;
+  margin-left: 10px;
+}
+
+.null-text {
+  padding: 10px;
+}
+
+.ll-box.shift .ll-node {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(20px);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

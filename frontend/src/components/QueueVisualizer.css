@@ -1,0 +1,105 @@
+.queue-page {
+  text-align: center;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+.queue-inputs {
+  margin-bottom: 1rem;
+}
+
+.queue-inputs input {
+  padding: 0.5rem;
+  border-radius: 5px;
+  width: 160px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.queue-inputs button {
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.queue-inputs button:hover {
+  background-color: #1565c0;
+}
+
+.message {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.queue-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.queue-box {
+  display: flex;
+  border: 3px solid #1976d2;
+  background-color: #e3f2fd;
+  border-radius: 8px;
+  padding: 10px;
+  gap: 10px;
+  min-height: 60px;
+  min-width: 300px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.queue-box.shift .queue-item {
+  animation: shiftRight 0.3s ease;
+}
+
+.queue-item {
+  width: 50px;
+  height: 50px;
+  background-color: #1e88e5;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: transform 0.3s ease;
+}
+
+.queue-item.empty {
+  background-color: #bbdefb;
+  border: 2px dashed #64b5f6;
+  color: transparent;
+}
+
+.label {
+  font-weight: bold;
+  color: #1976d2;
+  font-size: 16px;
+}
+.left-label {
+  margin-right: 8px;
+}
+.right-label {
+  margin-left: 8px;
+}
+
+@keyframes shiftRight {
+  0% {
+    transform: translateX(20px);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

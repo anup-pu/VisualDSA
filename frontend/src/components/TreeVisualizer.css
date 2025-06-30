@@ -1,0 +1,60 @@
+.tree-page {
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.left-panel {
+  width: 65%;
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.right-panel {
+  width: 35%;
+  background: #e8f0fe;
+  padding: 20px;
+  border-radius: 10px;
+  height: fit-content;
+}
+
+.controls {
+  margin-bottom: 20px;
+}
+
+.controls input {
+  padding: 6px;
+  width: 120px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.controls button {
+  margin-right: 8px;
+  padding: 6px 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.controls button:hover {
+  background-color: #0056b3;
+}
+
+.right-panel h3 {
+  margin-bottom: 15px;
+}
+
+.right-panel p {
+  background: #fff;
+  padding: 8px 10px;
+  border-radius: 5px;
+  margin: 6px 0;
+  font-weight: 500;
+  border-left: 4px solid #007bff;
+}
