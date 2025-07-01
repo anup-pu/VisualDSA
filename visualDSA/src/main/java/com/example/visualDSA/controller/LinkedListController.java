@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/linkedlist")
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class LinkedListController {
 
     @Autowired

@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/stack")
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class StackController {
 
     @Autowired

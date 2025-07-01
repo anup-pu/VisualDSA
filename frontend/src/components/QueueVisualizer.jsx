@@ -9,13 +9,17 @@ const QueueVisualizer = () => {
   const [queue, setQueue] = useState([]);
   const [message, setMessage] = useState('');
   const [animating, setAnimating] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const fetchQueue = async () => {
     try {
+      setLoading(true);
       const res = await axios.get('https://visualdsa-backend.onrender.com/queue/all');
       setQueue(res.data);
     } catch (err) {
       console.error('Error fetching queue:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -35,6 +39,7 @@ const QueueVisualizer = () => {
 
     try {
       setAnimating(true);
+      setLoading(true);
       await axios.post(`https://visualdsa-backend.onrender.com/queue/enqueue?value=${value}`);
       setTimeout(() => {
         setAnimating(false);
@@ -54,6 +59,7 @@ const QueueVisualizer = () => {
     }
 
     try {
+      setLoading(true);
       await axios.delete('https://visualdsa-backend.onrender.com/queue/dequeue');
       fetchQueue();
       setMessage('');
@@ -62,7 +68,6 @@ const QueueVisualizer = () => {
     }
   };
 
-  // Queue comes in correct order from backend now — no reverse needed
   const paddedQueue = [...queue];
   while (paddedQueue.length < MAX_QUEUE_SIZE) {
     paddedQueue.push(null);
@@ -85,17 +90,21 @@ const QueueVisualizer = () => {
 
       {message && <p className="message">{message}</p>}
 
-      <div className="queue-wrapper">
-        <p className="label left-label">Front</p>
-        <div className={`queue-box ${animating ? 'shift' : ''}`}>
-          {paddedQueue.map((item, index) => (
-            <div className={`queue-item ${item === null ? 'empty' : ''}`} key={index}>
-              {item !== null ? item : ''}
-            </div>
-          ))}
+      {loading ? (
+        <div className="loader"></div>
+      ) : (
+        <div className="queue-wrapper">
+          <p className="label left-label">Front</p>
+          <div className={`queue-box ${animating ? 'shift' : ''}`}>
+            {paddedQueue.map((item, index) => (
+              <div className={`queue-item ${item === null ? 'empty' : ''}`} key={index}>
+                {item !== null ? item : ''}
+              </div>
+            ))}
+          </div>
+          <p className="label right-label">Rear</p>
         </div>
-        <p className="label right-label">Rear</p>
-      </div>
+      )}
     </div>
   );
 };

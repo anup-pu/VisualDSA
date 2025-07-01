@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/queue")
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class QueueController {
 
     @Autowired

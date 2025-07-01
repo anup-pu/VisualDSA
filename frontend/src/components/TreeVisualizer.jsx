@@ -7,6 +7,7 @@ const TreeVisualizer = () => {
   const svgRef = useRef();
   const [treeData, setTreeData] = useState(null);
   const [value, setValue] = useState('');
+  const [loading, setLoading] = useState(false);
   const [traversals, setTraversals] = useState({
     bfs: [],
     inorder: [],
@@ -17,19 +18,12 @@ const TreeVisualizer = () => {
   const formatTree = useCallback((flatData) => {
     const toNode = (i) => {
       if (i >= flatData.length) return null;
-
       const val = flatData[i].value;
-
       if (val === 'null') {
-        return {
-          name: 'null',
-          children: []
-        };
+        return { name: 'null', children: [] };
       }
-
       const left = toNode(2 * i + 1);
       const right = toNode(2 * i + 2);
-
       return {
         name: val,
         children: [
@@ -38,7 +32,6 @@ const TreeVisualizer = () => {
         ]
       };
     };
-
     return toNode(0);
   }, []);
 
@@ -62,6 +55,7 @@ const TreeVisualizer = () => {
   }, []);
 
   const fetchTree = useCallback(async () => {
+    setLoading(true);
     try {
       const res = await axios.get('https://visualdsa-backend.onrender.com/tree/all');
       const formatted = formatTree(res.data);
@@ -69,6 +63,8 @@ const TreeVisualizer = () => {
       fetchTraversals();
     } catch (error) {
       console.error('Tree fetch error:', error);
+    } finally {
+      setLoading(false);
     }
   }, [formatTree, fetchTraversals]);
 
@@ -80,7 +76,6 @@ const TreeVisualizer = () => {
 
     const width = 600;
     const height = 500;
-
     const root = d3.hierarchy(treeData);
     const treeLayout = d3.tree().size([width - 100, height - 100]);
     treeLayout(root);
@@ -129,19 +124,40 @@ const TreeVisualizer = () => {
 
   const insert = async () => {
     if (!value.trim()) return;
-    await axios.post(`https://visualdsa-backend.onrender.com/tree/insert?value=${value}`);
-    setValue('');
-    fetchTree();
+    setLoading(true);
+    try {
+      await axios.post(`https://visualdsa-backend.onrender.com/tree/insert?value=${value}`);
+      setValue('');
+      fetchTree();
+    } catch (err) {
+      console.error('Insert error:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const insertNull = async () => {
-    await axios.post('https://visualdsa-backend.onrender.com/tree/insert-null');
-    fetchTree();
+    setLoading(true);
+    try {
+      await axios.post('https://visualdsa-backend.onrender.com/tree/insert-null');
+      fetchTree();
+    } catch (err) {
+      console.error('Insert Null error:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const reset = async () => {
-    await axios.delete('https://visualdsa-backend.onrender.com/tree/reset');
-    fetchTree();
+    setLoading(true);
+    try {
+      await axios.delete('https://visualdsa-backend.onrender.com/tree/reset');
+      fetchTree();
+    } catch (err) {
+      console.error('Reset error:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -167,6 +183,7 @@ const TreeVisualizer = () => {
           <button onClick={insertNull}>Insert Null</button>
           <button onClick={reset}>Reset</button>
         </div>
+        {loading && <div className="loader"></div>}
         <svg ref={svgRef} width="100%" height="500px" />
       </div>
 

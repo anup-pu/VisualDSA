@@ -9,7 +9,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/tree")
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class TreeController {
 
     @Autowired

@@ -8,13 +8,18 @@ const StackVisualizer = () => {
   const [value, setValue] = useState('');
   const [stack, setStack] = useState([]);
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false); // loader state
 
   const fetchStack = async () => {
+    setLoading(true); // start loader
     try {
       const res = await axios.get('https://visualdsa-backend.onrender.com/stack/all');
       setStack(res.data);
     } catch (err) {
       console.error('Error fetching stack:', err);
+      setMessage('⚠️ Failed to fetch stack');
+    } finally {
+      setLoading(false); // stop loader
     }
   };
 
@@ -32,6 +37,7 @@ const StackVisualizer = () => {
       return;
     }
 
+    setLoading(true);
     try {
       await axios.post(`https://visualdsa-backend.onrender.com/stack/push?value=${value}`);
       setValue('');
@@ -39,6 +45,9 @@ const StackVisualizer = () => {
       fetchStack();
     } catch (err) {
       console.error('Push error:', err);
+      setMessage('⚠️ Push failed');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -48,12 +57,16 @@ const StackVisualizer = () => {
       return;
     }
 
+    setLoading(true);
     try {
       await axios.delete(`https://visualdsa-backend.onrender.com/stack/pop`);
       setMessage('');
       fetchStack();
     } catch (err) {
       console.error('Pop error:', err);
+      setMessage('⚠️ Pop failed');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -73,6 +86,7 @@ const StackVisualizer = () => {
       </div>
 
       {message && <p className="message">{message}</p>}
+      {loading && <p className="loader"></p>} {/* 👈 loader */}
 
       <div className="stack-container">
         <p className="top-label">Top</p>

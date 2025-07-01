@@ -10,13 +10,17 @@ const LinkedListVisualizer = () => {
   const [list, setList] = useState([]);
   const [message, setMessage] = useState('');
   const [animating, setAnimating] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const fetchList = async () => {
     try {
+      setLoading(true);
       const res = await axios.get('https://visualdsa-backend.onrender.com/linkedlist/all');
       setList(res.data);
     } catch (err) {
       console.error('Error fetching linked list:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -36,6 +40,7 @@ const LinkedListVisualizer = () => {
 
     try {
       setAnimating(true);
+      setLoading(true);
       await axios.post(`https://visualdsa-backend.onrender.com/linkedlist/insert?value=${value}&index=${index}`);
       setTimeout(() => {
         setAnimating(false);
@@ -56,6 +61,7 @@ const LinkedListVisualizer = () => {
     }
 
     try {
+      setLoading(true);
       await axios.delete(`https://visualdsa-backend.onrender.com/linkedlist/delete?index=${index}`);
       fetchList();
       setIndex('');
@@ -88,26 +94,30 @@ const LinkedListVisualizer = () => {
 
       {message && <p className="message">{message}</p>}
 
-      <div className="ll-wrapper">
-        <div className={`ll-box ${animating ? 'shift' : ''}`}>
-          {list.length > 0 && (
-            <div className="ll-head">
-              <div className="head-label">Head →</div>
-            </div>
-          )}
-          {list.map((item, index) => (
-            <div className="ll-node" key={index}>
-              <div className="value">{item}</div>
-              <div className="arrow">→</div>
-            </div>
-          ))}
-          {list.length > 0 && (
-            <div className="ll-null">
-              <div className="null-text">null</div>
-            </div>
-          )}
+      {loading ? (
+        <div className="loader"></div>
+      ) : (
+        <div className="ll-wrapper">
+          <div className={`ll-box ${animating ? 'shift' : ''}`}>
+            {list.length > 0 && (
+              <div className="ll-head">
+                <div className="head-label">Head →</div>
+              </div>
+            )}
+            {list.map((item, index) => (
+              <div className="ll-node" key={index}>
+                <div className="value">{item}</div>
+                <div className="arrow">→</div>
+              </div>
+            ))}
+            {list.length > 0 && (
+              <div className="ll-null">
+                <div className="null-text">null</div>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
