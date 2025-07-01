@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8080/stack';
+const BASE_URL = `${process.env.REACT_APP_BACKEND_URL}/stack`;
 
 export const getStack = () => axios.get(`${BASE_URL}/all`);
 

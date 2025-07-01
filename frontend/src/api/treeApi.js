@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8080/tree';
+const BASE_URL = `${process.env.REACT_APP_BACKEND_URL}/tree`;
 
 export const insertNode = (value) =>
   axios.post(`${BASE_URL}/insert`, null, { params: { value } });

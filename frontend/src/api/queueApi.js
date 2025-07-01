@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8080/queue';
+const BASE_URL = `${process.env.REACT_APP_BACKEND_URL}/queue`;
 
 export const getQueue = () => axios.get(`${BASE_URL}/all`);
 
