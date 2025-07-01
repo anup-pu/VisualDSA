@@ -13,7 +13,7 @@ const LinkedListVisualizer = () => {
 
   const fetchList = async () => {
     try {
-      const res = await axios.get('http://localhost:8080/linkedlist/all');
+      const res = await axios.get('https://visualdsa-backend.onrender.com/linkedlist/all');
       setList(res.data);
     } catch (err) {
       console.error('Error fetching linked list:', err);
@@ -36,7 +36,7 @@ const LinkedListVisualizer = () => {
 
     try {
       setAnimating(true);
-      await axios.post(`http://localhost:8080/linkedlist/insert?value=${value}&index=${index}`);
+      await axios.post(`https://visualdsa-backend.onrender.com/linkedlist/insert?value=${value}&index=${index}`);
       setTimeout(() => {
         setAnimating(false);
         fetchList();
@@ -56,7 +56,7 @@ const LinkedListVisualizer = () => {
     }
 
     try {
-      await axios.delete(`http://localhost:8080/linkedlist/delete?index=${index}`);
+      await axios.delete(`https://visualdsa-backend.onrender.com/linkedlist/delete?index=${index}`);
       fetchList();
       setIndex('');
       setMessage('');

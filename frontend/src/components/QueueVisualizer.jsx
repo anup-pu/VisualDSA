@@ -12,7 +12,7 @@ const QueueVisualizer = () => {
 
   const fetchQueue = async () => {
     try {
-      const res = await axios.get('http://localhost:8080/queue/all');
+      const res = await axios.get('https://visualdsa-backend.onrender.com/queue/all');
       setQueue(res.data);
     } catch (err) {
       console.error('Error fetching queue:', err);
@@ -35,7 +35,7 @@ const QueueVisualizer = () => {
 
     try {
       setAnimating(true);
-      await axios.post(`http://localhost:8080/queue/enqueue?value=${value}`);
+      await axios.post(`https://visualdsa-backend.onrender.com/queue/enqueue?value=${value}`);
       setTimeout(() => {
         setAnimating(false);
         fetchQueue();
@@ -54,7 +54,7 @@ const QueueVisualizer = () => {
     }
 
     try {
-      await axios.delete('http://localhost:8080/queue/dequeue');
+      await axios.delete('https://visualdsa-backend.onrender.com/queue/dequeue');
       fetchQueue();
       setMessage('');
     } catch (err) {

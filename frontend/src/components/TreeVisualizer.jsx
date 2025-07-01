@@ -45,10 +45,10 @@ const TreeVisualizer = () => {
   const fetchTraversals = useCallback(async () => {
     try {
       const [bfs, inorder, preorder, postorder] = await Promise.all([
-        axios.get('http://localhost:8080/tree/bfs'),
-        axios.get('http://localhost:8080/tree/inorder'),
-        axios.get('http://localhost:8080/tree/preorder'),
-        axios.get('http://localhost:8080/tree/postorder')
+        axios.get('https://visualdsa-backend.onrender.com/tree/bfs'),
+        axios.get('https://visualdsa-backend.onrender.com/tree/inorder'),
+        axios.get('https://visualdsa-backend.onrender.com/tree/preorder'),
+        axios.get('https://visualdsa-backend.onrender.com/tree/postorder')
       ]);
       setTraversals({
         bfs: bfs.data,
@@ -63,7 +63,7 @@ const TreeVisualizer = () => {
 
   const fetchTree = useCallback(async () => {
     try {
-      const res = await axios.get('http://localhost:8080/tree/all');
+      const res = await axios.get('https://visualdsa-backend.onrender.com/tree/all');
       const formatted = formatTree(res.data);
       setTreeData(formatted);
       fetchTraversals();
@@ -129,18 +129,18 @@ const TreeVisualizer = () => {
 
   const insert = async () => {
     if (!value.trim()) return;
-    await axios.post(`http://localhost:8080/tree/insert?value=${value}`);
+    await axios.post(`https://visualdsa-backend.onrender.com/tree/insert?value=${value}`);
     setValue('');
     fetchTree();
   };
 
   const insertNull = async () => {
-    await axios.post('http://localhost:8080/tree/insert-null');
+    await axios.post('https://visualdsa-backend.onrender.com/tree/insert-null');
     fetchTree();
   };
 
   const reset = async () => {
-    await axios.delete('http://localhost:8080/tree/reset');
+    await axios.delete('https://visualdsa-backend.onrender.com/tree/reset');
     fetchTree();
   };
 

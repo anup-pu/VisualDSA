@@ -11,7 +11,7 @@ const StackVisualizer = () => {
 
   const fetchStack = async () => {
     try {
-      const res = await axios.get('http://localhost:8080/stack/all');
+      const res = await axios.get('https://visualdsa-backend.onrender.com/stack/all');
       setStack(res.data);
     } catch (err) {
       console.error('Error fetching stack:', err);
@@ -33,7 +33,7 @@ const StackVisualizer = () => {
     }
 
     try {
-      await axios.post(`http://localhost:8080/stack/push?value=${value}`);
+      await axios.post(`https://visualdsa-backend.onrender.com/stack/push?value=${value}`);
       setValue('');
       setMessage('');
       fetchStack();
@@ -49,7 +49,7 @@ const StackVisualizer = () => {
     }
 
     try {
-      await axios.delete(`http://localhost:8080/stack/pop`);
+      await axios.delete(`https://visualdsa-backend.onrender.com/stack/pop`);
       setMessage('');
       fetchStack();
     } catch (err) {
