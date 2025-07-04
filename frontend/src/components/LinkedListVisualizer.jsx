@@ -53,7 +53,7 @@ const LinkedListVisualizer = () => {
       }
     } catch (err) {
       console.error('Insert error:', err);
-      setMessage('⚠️ Error during insertion');
+      setMessage('⚠️ Error during insertion, please enter valid index');
     } finally {
       setTimeout(() => setAnimating(false), 300);
       setLoading(false);
@@ -75,7 +75,7 @@ const LinkedListVisualizer = () => {
       setMessage('');
     } catch (err) {
       console.error('Delete error:', err);
-      setMessage('⚠️ Error during deletion');
+      setMessage('⚠️ Error during deletion, please enter valid index');
     } finally {
       setIndex('');
       setLoading(false);
