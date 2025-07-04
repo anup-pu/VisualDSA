@@ -135,4 +135,16 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+/* Steady loader (non-rotating version of .loader) */
+.steady-loader {
+  margin-top: 2rem;
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #1976d2;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: none;
+  margin-left: auto;
+  margin-right: auto;
+}
 

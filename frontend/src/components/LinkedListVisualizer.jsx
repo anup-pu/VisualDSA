@@ -19,6 +19,7 @@ const LinkedListVisualizer = () => {
       setList(res.data);
     } catch (err) {
       console.error('Error fetching linked list:', err);
+      setMessage('⚠️ Failed to load list');
     } finally {
       setLoading(false);
     }
@@ -41,16 +42,23 @@ const LinkedListVisualizer = () => {
     try {
       setAnimating(true);
       setLoading(true);
-      await axios.post(`https://visualdsa-backend.onrender.com/linkedlist/insert?value=${value}&index=${index}`);
-      setTimeout(() => {
-        setAnimating(false);
+      const response = await axios.post(`https://visualdsa-backend.onrender.com/linkedlist/insert?value=${value}&index=${index}`);
+      
+      // Check if insertion failed by comparing length (invalid index returns unchanged list)
+      if (response.data.length === list.length) {
+        setMessage('⚠️ Invalid index entered');
+      } else {
+        setMessage('');
         fetchList();
-      }, 300);
-      setValue('');
-      setIndex('');
-      setMessage('');
+      }
     } catch (err) {
       console.error('Insert error:', err);
+      setMessage('⚠️ Error during insertion');
+    } finally {
+      setTimeout(() => setAnimating(false), 300);
+      setLoading(false);
+      setValue('');
+      setIndex('');
     }
   };
 
@@ -64,10 +72,13 @@ const LinkedListVisualizer = () => {
       setLoading(true);
       await axios.delete(`https://visualdsa-backend.onrender.com/linkedlist/delete?index=${index}`);
       fetchList();
-      setIndex('');
       setMessage('');
     } catch (err) {
       console.error('Delete error:', err);
+      setMessage('⚠️ Error during deletion');
+    } finally {
+      setIndex('');
+      setLoading(false);
     }
   };
 
@@ -95,7 +106,7 @@ const LinkedListVisualizer = () => {
       {message && <p className="message">{message}</p>}
 
       {loading ? (
-        <div className="loader"></div>
+        <div className="loader steady-loader"></div>
       ) : (
         <div className="ll-wrapper">
           <div className={`ll-box ${animating ? 'shift' : ''}`}>
